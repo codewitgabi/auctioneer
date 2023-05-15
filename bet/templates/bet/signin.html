@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: #27282c;
+      color: #fff;
+      font-family: Helvetica;
+    }
+:root {
+      --inline-block: inline-block;
+    }
+    .main-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .form-wrapper {
+      margin: 0 2em;
+      text-align: center;
+    }
+    .heading {
+      margin: 1.5em 0;
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+    .error-texts {
+      font-size: 0.8rem;
+      color: red;
+      margin-bottom: 1.5em;
+    }
+    .error-texts ul {
+      margin-left: 1.5em;
+      text-align: left;
+    }
+    #signup-form input {
+      width: 100%;
+      display: var(--inline-block);
+      margin: 0.5em 0;
+      padding: 12px;
+      background: #fff;
+      border-radius: 50px;
+      border: none;
+      outline: none;
+    }
+    .auth-btn {
+      display: var(--inline-block);
+      padding: 10px 35px;
+      background: #e4eaf2;
+      border: 2px solid #8fa5b2;
+      border-radius: 10px 50px 10px 50px;
+      margin-top: 1em;
+    }
+    .form-footer {
+      font-size: 0.8rem;
+      display: var(--inline-block);
+      margin: 2em 0;
+      font-weight: 400;
+    }
+    .form-footer a {
+      text-decoration: none;
+      color: orange;
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="form-wrapper">
+      <h2 class="heading">Login To Your Account</h2>
+      <div class="error-texts">
+        {% if form.errors %}
+          {% for error in form.errors.values %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </div>
+      <form title="Sign Up" id="signup-form" method="post">
+      {% csrf_token %}
+        {{ form.username }}
+        {{ form.password }}
+        <button type="submit" class="auth-btn">Sign In</button>
+      </form>
+      <span class="form-footer">Not signed up yet? <a href="{% url 'bet:signup' %}">Sign Up</a></span>
+    </div>
+  </div>
+</body>
+</html>
