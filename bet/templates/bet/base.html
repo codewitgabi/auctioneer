@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+  <title>{% block title %} {% endblock %}</title>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="form-wrapper">
+      <h2 class="heading">
+        {% block form_heading %}
+        {% endblock %}
+      </h2>
+      <div class="error-texts">
+        {% if form.errors %}
+          {% for error in form.errors.values %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </div>
+      <form id="auth-form" method="post">
+      {% csrf_token %}
+        {{ form.username }}
+        {% block password_input %} {% endblock %}
+        <button type="submit" class="auth-btn">
+          {% block btn_text %}    
+          {% endblock %}
+        </button>
+      </form>
+      <span class="form-footer">
+      {% block form_footer %}
+      {% endblock %}
+      </span>
+    </div>
+  </div>
+</body>
+</html>
