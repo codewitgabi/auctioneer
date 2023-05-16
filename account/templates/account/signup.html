@@ -1,4 +1,4 @@
-{% extends "bet/base.html" %}
+{% extends "account/base.html" %}
 {% block title %} Spin Bet: Sign Up {% endblock %}
 
 {% block form_heading %} Create An Account {% endblock %}
@@ -8,5 +8,5 @@
 {% block btn_text %} Sign Up {% endblock %}
        
 {% block form_footer %}
-Not signed up yet? <a href="{% url 'bet:signin' %}">Sign In
+Not signed up yet? <a href="{% url 'account:signin' %}">Sign In
 {% endblock %}

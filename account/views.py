@@ -14,6 +14,6 @@ def signup(request):
 		form = UserRegistrationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect("bet:signin")
+			return redirect("account:signin")
 	
-	return render(request, "bet/signup.html", {"form": form})
+	return render(request, "account/signup.html", {"form": form})

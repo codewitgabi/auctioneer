@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "bet.apps.BetConfig",
+    "account.apps.AccountConfig",
 ]
 
 MIDDLEWARE = [

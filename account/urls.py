@@ -4,12 +4,12 @@ from . import views
 from .forms import LoginForm
 
 
-app_name = "bet"
+app_name = "account"
 urlpatterns = [
 	path("", views.signup, name="signup"),
 	path("signin/",
 		auth_views.LoginView.as_view(
-			template_name="bet/signin.html",
+			template_name="account/signin.html",
 			authentication_form=LoginForm
 		),
 		name="signin"
