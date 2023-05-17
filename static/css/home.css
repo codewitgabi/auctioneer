@@ -1,0 +1,204 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+:root {
+  --dark-bg: #27282c;
+  --light-bg: #fafafa;
+  --def-font-color: #fff;
+  --desktop-mrg: 2em 5% 0 5%;
+  --mobile-mrg: 1em;
+}
+body {
+  font-family: Helvetica;
+  font-weight: 300;
+  background: var(--dark-bg);
+  color: var(--def-font-color);
+}
+a {
+  text-decoration: none;
+  color: blue;
+}
+img {
+  width: 100%;
+}
+/* Nav */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2em 5%;
+  background: var(--light-bg);
+  box-shadow: hsl(0, 0%, 80%) 0 0 2px;
+}
+nav > a {
+  color: #000;
+  font-weight: 500;
+  font-size: 1.3rem;
+}
+nav svg {
+  display: none;
+}
+.nav-links a {
+  margin-left: 1em;
+  font-weight: 400;
+}
+@media (max-width: 768px) {
+  nav {
+    padding: var(--mobile-mrg);
+  }
+  nav > a {
+    font-weight: 300;
+  }
+  nav svg {
+    display: block;
+  }
+  #close-menu {
+    float: right;
+    margin: 1em 1em 2em 0;
+  }
+  .nav-links {
+    padding-left: 2em;
+    position: fixed;
+    width: 220px;
+    top: 0;
+    right: -220px;
+    height: 100vh;
+    background: var(--light-bg);
+    z-index: 9999;
+    transition: .5s;
+  }
+  .nav-links a {
+    display: block;
+    clear: both;
+    margin: 1.5em 0;
+  }
+}
+/* Main */
+.main {
+  margin: var(--desktop-mrg);
+}
+.header {
+  font-size: 2.5rem;
+}
+.intro-text {
+  margin-top: 1.7em;
+  font-size: 1.2rem;
+  line-height: 2;
+}
+#get-started {
+  background: beige;
+  color: #000;
+  padding: 12px 40px;
+  border-radius: 4px;
+  display: inline-block;
+  margin-top: 2em;
+  font-weight: 400;
+}
+@media (max-width: 768px) {
+  .main {
+    margin: var(--mobile-mrg);
+  }
+  .intro-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+  }
+}
+/* Upcoming Auctions */
+.lots {
+  margin: var(--desktop-mrg);
+  margin-top: 5em;
+}
+.lots h2 {
+  font-size: 2rem;
+}
+.lots .row {
+  margin-top: 2em;
+}
+.lots .row .col {
+  background: var(--light-bg);
+  box-shadow: hsl(0, 0%, 80%) 0 0 2px;
+  padding: 1em;
+  color: #000;
+}
+.lots .row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
+}
+.lot-title {
+  font-size: 1.4rem;
+  font-weight: 400;
+  margin-top: 1em;
+}
+.lot-description {
+  font-size: 0.8rem;
+  font-style: italic;
+  margin-top: 1em;
+}
+.lot-price {
+  display: inline-block;
+  margin-top: 1em;
+  font-weight: 400;
+  font-size: 1rem;
+  line-break: break;
+}
+.lots .row .col button {
+  padding: 10px 35px;
+  border-radius: 5px;
+  background: var(--dark-bg);
+  display: inline-block;
+  margin-top: 2em;
+}
+.lots .row .col button a {
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .lots {
+    margin: var(--mobile-mrg);
+    margin-top: 5em;
+  }
+  .lots .row {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+/* Subscription */
+.sub-wrapper {
+  line-height: 3;
+  width: 500px;
+  margin: 5em auto 0 auto;
+}
+#sub-form {
+  display: flex;
+  align-items: center;
+}
+#sub-form input {
+  padding: 12px;
+  width: 100%;
+}
+#sub-btn {
+  padding: 12px 30px;
+  background: red;
+  border: 2px solid #fff;
+  border-radius: 0 50px 50px 0;
+  color: #fff;
+}
+@media (max-width: 768px) {
+  .sub-wrapper {
+    margin: var(--mobile-mrg);
+    margin-top: 3em;
+    width: fit-content;
+    line-height: 1;
+  }
+  #sub-form {
+    margin-top: 1.5em;
+  }
+}
+/* Footer */
+footer {
+  text-align: center;
+  margin: 2em;
+  font-size: 0.8rem;
+}
