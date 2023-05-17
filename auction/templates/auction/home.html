@@ -19,7 +19,7 @@
       {% if not request.user.is_authenticated %}
         <a href="{% url 'account:signin' %}">Login</a>
       {% else %}
-        <a href="#!">Logout</a>
+        <a href="{% url 'account:signout' %}">Logout</a>
       {% endif %}
       <a href="https://github.com/codewitgabi/spin-bet">Github</a>
     </div>

@@ -119,4 +119,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = "account:signin"
 LOGIN_REDIRECT_URL = "auction:home"
-
+LOGOUT_REDIRECT_URL = "account:signin"

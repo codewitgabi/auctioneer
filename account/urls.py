@@ -6,7 +6,7 @@ from .forms import LoginForm
 
 app_name = "account"
 urlpatterns = [
-	path("", views.signup, name="signup"),
+	path("signup/", views.signup, name="signup"),
 	path("signin/",
 		auth_views.LoginView.as_view(
 			template_name="account/signin.html",
@@ -14,4 +14,5 @@ urlpatterns = [
 		),
 		name="signin"
 	),
+	path("signout/", auth_views.LogoutView.as_view(), name="signout"),
 ]
