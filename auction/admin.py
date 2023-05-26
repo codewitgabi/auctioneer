@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Lot, Bidder, LotImage
+from .models import Lot, Bid, LotImage
 
 
 class LotImageInline(admin.TabularInline):
@@ -14,7 +14,7 @@ class LotAdmin(admin.ModelAdmin):
 	inlines = (LotImageInline,)
 
 
-@admin.register(Bidder)
-class BidderAdmin(admin.ModelAdmin):
-	list_display = ("user", "bid")
+@admin.register(Bid)
+class BidAdmin(admin.ModelAdmin):
+	list_display = ("bidder", "bid")
 

@@ -4,7 +4,7 @@ const navLinks = document.getElementById("nav-links");
 
 /* Close nav menu */
 closeMenu.addEventListener("click", () => {
-  navLinks.style.right = "-220px";
+  navLinks.style.right = "-300px";
 })
 
 /* Open nav menu */

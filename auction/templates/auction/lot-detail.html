@@ -1,0 +1,84 @@
+{% extends "auction/base.html" %}
+{% block title %} {{ lot.name }} Bid {% endblock %}
+
+{% block content %}
+
+<section class="main">
+  <div class="bid-wrapper">
+    <img src="{{ lot.lotimage_set.all.first.image_url }}" alt="lot-img">
+    <h1>{{ lot.name }}</h1>
+    <p class="lot-desc">
+      {{ lot.description }}
+    </p>
+    <div class="bids-display">
+      <table>
+        <thead>
+          <tr>
+            <td class="sn">S/N</td>
+            <td>Bidders</td>
+            <td>Bids</td>
+          </tr>
+        </thead>
+        <tbody id="bidders-display-box"></tbody>
+      </table>
+    </div>
+    <button id="bid-btn" class="bid-incrementer">Place Bid +${{ lot.increment }}</button>
+    <input type="number" placeholder="Enter a larger bid..." id="bid-move-amt">
+  </div>
+</section>
+
+<script>
+  let protocol = "ws:";
+  if (window.location.protocol === "https:") protocol = "wss:";
+  const socket_url = `${protocol}//${window.location.host}/bid/{{ lot.id }}/`;
+  const bidInput = document.querySelector("#bid-move-amt");
+  const bidBtn = document.querySelector("#bid-btn");
+  let lotPrice = Number("{{ lot.price }}");
+  const lotIncrementalValue = Number("{{ lot.increment }}");
+  const biddersDisplayBox = document.querySelector("#bidders-display-box");
+
+  const socket = new WebSocket(socket_url);
+
+  socket.onopen = function (e) {
+    socket.onmessage = function (e) {
+      const data = JSON.parse(e.data);
+      const bids = data.bids;
+
+      if (data.type === "bids") {
+        let bidders = "";
+        for (let index in bids) {
+          bidders += `<tr>
+          <td class="sn">${ Number(index) + 1 }.</td>
+          <td>${ bids[index].bidder }</td>
+          <td>$${ bids[index].bid }</td>
+          </tr>`;
+        }
+        biddersDisplayBox.innerHTML = bidders;
+      }
+    }
+  }
+
+  bidBtn.addEventListener("click", e => {
+    let setBid = bidInput.value;
+    let bid = Number(setBid);
+
+    if (bid < lotPrice && setBid !== "") {
+      // do validation here
+      alert("Amount too small");
+      return;
+    }
+
+    if (setBid === "") {
+      bid = lotPrice + lotIncrementalValue;
+    }
+
+    socket.send(JSON.stringify({
+      "bid": bid
+    }));
+
+    lotPrice = bid;
+  });
+
+</script>
+
+{% endblock %}
