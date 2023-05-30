@@ -7,6 +7,7 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.utils.timesince import timeuntil
 
 User = get_user_model()
 
@@ -61,6 +62,11 @@ class Lot(models.Model):
 		return reverse("auction:lot_bid_view", kwargs={
 			"lot_id": self.id
 		})
+	
+	@property
+	def is_ready(self):
+		t, mins = timeuntil(self.auction_date).split(",")[0].split()
+		return t == "0" and mins == "minutes"
 	
 	def __str__(self):
 		return self.name

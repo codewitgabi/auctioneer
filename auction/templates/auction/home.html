@@ -30,7 +30,11 @@
         <p class="lot-description">{{ lot.description|truncatewords:"50" }}</p>
         <span class="lot-price">${{ lot.price }}</span>
         <br>
-        <button><a href="{{ lot.get_absolute_url }}">Start Bidding</a></button>
+        <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em;">{{ lot.auction_date }}</span>
+        <br>
+        {% if lot.is_ready %}
+          <button><a href="{{ lot.get_absolute_url }}">Start Bidding</a></button>
+        {% endif %}
       </div>
      {% endfor %}
      
