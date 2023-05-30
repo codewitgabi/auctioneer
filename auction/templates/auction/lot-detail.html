@@ -81,4 +81,25 @@
 
 </script>
 
+<script>
+  const getLotEndtimeUrl = "http://localhost:8000/has-expired/{{ lot.id }}/";
+  let interval;
+  
+  function lot_has_ended() {
+    interval = window.setInterval(() => {
+      fetch(getLotEndtimeUrl)
+      .then(resp => resp.json())
+      .then(data => {
+        if (data.has_ended) {
+          window.clearInterval(interval);
+          window.location.href = "/";
+        }
+      })
+    }, 1000)
+  }
+  
+  lot_has_ended();
+  
+</script>
+
 {% endblock %}

@@ -32,7 +32,7 @@
         <br>
         <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em;">{{ lot.auction_date }}</span>
         <br>
-        {% if lot.is_ready %}
+        {% if lot.is_ready and not lot.has_ended %}
           <button><a href="{{ lot.get_absolute_url }}">Start Bidding</a></button>
         {% endif %}
       </div>

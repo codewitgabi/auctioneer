@@ -8,7 +8,7 @@ class LotImageInline(admin.TabularInline):
 
 @admin.register(Lot)
 class LotAdmin(admin.ModelAdmin):
-	list_display = ("name", "price", "increment", "auction_date", "is_ready")
+	list_display = ("name", "price", "increment", "auction_date", "endtime", "is_ready")
 	list_filter = ("auction_date", "price")
 	search_fields = ("name",)
 	inlines = (LotImageInline,)

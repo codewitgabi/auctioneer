@@ -48,6 +48,7 @@ class Lot(models.Model):
 	price = models.DecimalField(max_digits=50, decimal_places=2)
 	increment = models.DecimalField(max_digits=10, decimal_places=2)
 	auction_date = models.DateTimeField()
+	endtime = models.DateTimeField()
 	sold = models.BooleanField(default=False)
 	
 	class Meta:
@@ -66,6 +67,11 @@ class Lot(models.Model):
 	@property
 	def is_ready(self):
 		t, mins = timeuntil(self.auction_date).split(",")[0].split()
+		return t == "0" and mins == "minutes"
+	
+	@property
+	def has_ended(self):
+		t, mins = timeuntil(self.endtime).split(",")[0].split()
 		return t == "0" and mins == "minutes"
 	
 	def __str__(self):
