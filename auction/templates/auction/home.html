@@ -28,7 +28,7 @@
         <img src="{{  lot.lotimage_set.all.first.image_url }}" alt="">
         <legend class="lot-title">{{ lot.name }}</legend>
         <p class="lot-description">{{ lot.description|truncatewords:"50" }}</p>
-        <span class="lot-price">${{ lot.price }}</span>
+        <span class="lot-price">$ {{ lot.price|floatformat:"-3g" }}</span>
         <br>
         <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em;">{{ lot.auction_date }}</span>
         <br>

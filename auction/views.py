@@ -8,7 +8,7 @@ from .models import Lot, Bid
 
 @login_required
 def home(request):
-	lots = Lot.objects.all()
+	lots = Lot.objects.all()[:20]
 	context: dict = {
 		"lots": lots
 	}
@@ -35,4 +35,14 @@ def get_lot_has_endtime(request, lot_id):
 	
 	return Response({
 		"has_ended": lot.has_ended}, status=status.HTTP_200_OK)
+
+
+@api_view(["GET"])
+def mark_lot_as_sold(request, lot_id):
+	# get lot object
+	lot = get_object_or_404(Lot, id=lot_id)
+	lot.sold = True
+	lot.save()
+	
+	return Response({"status": "success"}, status=status.HTTP_201_CREATED)
 

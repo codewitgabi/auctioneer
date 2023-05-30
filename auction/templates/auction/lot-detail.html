@@ -4,6 +4,7 @@
 {% block content %}
 
 <section class="main">
+  {{ lot.id|json_script:"lot_id" }}
   <div class="bid-wrapper">
     <img src="{{ lot.lotimage_set.all.first.image_url }}" alt="lot-img">
     <h1>{{ lot.name }}</h1>
@@ -22,15 +23,16 @@
         <tbody id="bidders-display-box"></tbody>
       </table>
     </div>
-    <button id="bid-btn" class="bid-incrementer">Place Bid +${{ lot.increment }}</button>
+    <button id="bid-btn" class="bid-incrementer">Place Bid +$ {{ lot.increment|floatformat:"-3g" }}</button>
     <input type="number" placeholder="Enter a larger bid..." id="bid-move-amt">
   </div>
 </section>
 
 <script>
   let protocol = "ws:";
+  const lot_id = JSON.parse(document.getElementById("lot_id").textContent);
   if (window.location.protocol === "https:") protocol = "wss:";
-  const socket_url = `${protocol}//${window.location.host}/bid/{{ lot.id }}/`;
+  const socket_url = `${protocol}//${window.location.host}/bid/${lot_id}/`;
   const bidInput = document.querySelector("#bid-move-amt");
   const bidBtn = document.querySelector("#bid-btn");
   let lotPrice = Number("{{ lot.price }}");
@@ -50,7 +52,7 @@
           bidders += `<tr>
           <td class="sn">${ Number(index) + 1 }.</td>
           <td>${ bids[index].bidder }</td>
-          <td>$${ bids[index].bid }</td>
+          <td>$ ${ bids[index].bid }</td>
           </tr>`;
         }
         biddersDisplayBox.innerHTML = bidders;
@@ -82,7 +84,7 @@
 </script>
 
 <script>
-  const getLotEndtimeUrl = "http://localhost:8000/has-expired/{{ lot.id }}/";
+  const getLotEndtimeUrl = `http://${window.location.host}/has-expired/{{ lot.id }}/`;
   let interval;
   
   function lot_has_ended() {
@@ -92,6 +94,7 @@
       .then(data => {
         if (data.has_ended) {
           window.clearInterval(interval);
+          mark_lot_as_sold(lot_id)
           window.location.href = "/";
         }
       })
@@ -99,6 +102,12 @@
   }
   
   lot_has_ended();
+  
+  
+  function mark_lot_as_sold(lot_id) {
+    const markAsSoldURL = `http://localhost:8000/mark-lot-as-sold/${lot_id}/`;
+    fetch(markAsSoldURL);
+  }
   
 </script>
 
