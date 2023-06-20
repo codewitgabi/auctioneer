@@ -1,18 +1,17 @@
 from pathlib import Path
 import os
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config("DEBUG") != "False"
+DEBUG = os.environ.get("DEBUG") != "False"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "10.186.122.216"]
 
 
 # Application definition
@@ -26,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "rest_framework",
     "account.apps.AccountConfig",
     "auction.apps.AuctionConfig",
 ]
@@ -108,7 +108,7 @@ USE_L10N = True
 USE_TZ = True
 
 TIME_INPUT_FORMATS = ('%I:%M %p',)
-DATE_INPUT_FORMATS = ("%Y-%m-%d")
+DATE_INPUT_FORMATS = ("%Y-%m-%d",)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -136,7 +136,7 @@ CHANNEL_LAYERS = {
 	"default": {
 		"BACKEND": "channels_redis.core.RedisChannelLayer",
 		"CONFIG": {
-			"hosts": [os.environ.get("REDIS_HOST", "redis://localhost:6379")]
+		"hosts": [os.environ.get("REDIS_HOST", "redis://localhost:6379")]
 		}
 	}
 }
