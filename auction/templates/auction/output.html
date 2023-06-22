@@ -1,0 +1,5 @@
+{% if not has_placed_bid %}
+<button><a href="{{ lot.get_absolute_url }}">Start Bidding</a></button>
+{% else %}
+<button><a href="{{ lot.get_absolute_url }}">Continue Bidding</a></button>
+{% endif %}

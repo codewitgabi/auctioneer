@@ -12,4 +12,5 @@ urlpatterns = [
          views.mark_lot_as_sold, name="mark_lot_as_sold"),
     path("get-lot-price/<uuid:lot_id>/",
          views.get_lot_price, name="get_lot_price"),
+    path("cart/", views.cart_view, name="cart_details"),
 ]

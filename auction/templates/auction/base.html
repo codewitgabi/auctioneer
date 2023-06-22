@@ -12,9 +12,9 @@
   <nav>
     <a href="{% url 'auction:home' %}">Auctioneer</a>
     <div class="nav-links" id="nav-links">
-      <svg id="close-menu" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 0 2 L 0 4 L 24 4 L 24 2 Z M 0 11 L 0 13 L 24 13 L 24 11 Z M 0 20 L 0 22 L 24 22 L 24 20 Z"/></svg>
+      <svg id="close-menu" fill="#fff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 0 2 L 0 4 L 24 4 L 24 2 Z M 0 11 L 0 13 L 24 13 L 24 11 Z M 0 20 L 0 22 L 24 22 L 24 20 Z"/></svg>
       <a href="#!">Auction</a>
-      <a href="#!">Lots</a>
+      <a href="{% url 'auction:cart_details' %}">Lots</a>
       <a href="#!">Checkout</a>
       {% if not request.user.is_authenticated %}
         <a href="{% url 'account:signin' %}">Login</a>
@@ -23,7 +23,7 @@
       {% endif %}
       <a href="https://github.com/codewitgabi/auctioneer">Github</a>
     </div>
-    <svg id="open-menu" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 0 2 L 0 4 L 24 4 L 24 2 Z M 0 11 L 0 13 L 24 13 L 24 11 Z M 0 20 L 0 22 L 24 22 L 24 20 Z"/></svg>
+    <svg id="open-menu" fill="#fff" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" height="24px"><path d="M 0 2 L 0 4 L 24 4 L 24 2 Z M 0 11 L 0 13 L 24 13 L 24 11 Z M 0 20 L 0 22 L 24 22 L 24 20 Z"/></svg>
   </nav>
   <!-- End Nav Section -->
   

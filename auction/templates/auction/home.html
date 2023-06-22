@@ -1,4 +1,5 @@
-{% extends "auction/base.html" %} 
+{% extends "auction/base.html" %}
+{% load lot_extras %}
 {% block title %} Auctioneer {% endblock %}
 
 
@@ -43,25 +44,25 @@
     <div class="col">
       <img src="{{  lot.lotimage_set.all.first.image_url }}" alt="" />
       <legend class="lot-title">{{ lot.name }}</legend>
-      <p class="lot-description">{{ lot.description|truncatewords:"50" }}</p>
+      <p class="lot-description">{{ lot.description|truncatechars:"75" }}</p>
       <span class="lot-price">$ {{ lot.price|floatformat:"-3g" }}</span>
       <br />
       <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em"
         >BEGINS</span
       >
       <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em"
-        >{{ lot.auction_date }}</span
+        >{{ lot.auction_date|date:"d/m/Y h:i A" }}</span
       >
       <br />
       <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em"
         >ENDS
       </span>
       <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em">
-        {{ lot.endtime }}</span
+        {{ lot.endtime|date:"d/m/Y h:i A" }}</span
       >
       <br />
       {% if lot.is_ready and not lot.has_ended %}
-      <button><a href="{{ lot.get_absolute_url }}">Start Bidding</a></button>
+          {% display_button_to_lot_bidding request.user lot %}
       {% endif %}
     </div>
     {% endfor %}

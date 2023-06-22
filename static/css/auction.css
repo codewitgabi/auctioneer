@@ -6,7 +6,7 @@
 :root {
   --dark-bg: #27282c;
   --light-bg: #fafafa;
-  --def-font-color: #fff;
+  --def-font-color: #a9a9a9;
   --desktop-mrg: 2em 5% 0 5%;
   --mobile-mrg: 1em;
 }
@@ -18,7 +18,7 @@ body {
 }
 a {
   text-decoration: none;
-  color: blue;
+  color: whitesmoke;
 }
 img {
   width: 100%;
@@ -28,12 +28,12 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2em 5%;
-  background: var(--light-bg);
-  box-shadow: hsl(0, 0%, 80%) 0 0 2px;
+  padding: 1em 5%;
+  /* background: var(--light-bg); */
+  /* box-shadow: hsl(0, 0%, 80%) 0 0 2px; */
 }
 nav > a {
-  color: #000;
+  /* color: #000; */
   font-weight: 500;
   font-size: 1.3rem;
 }
@@ -65,9 +65,10 @@ nav svg {
     top: 0;
     right: -300px;
     height: 100vh;
-    background: var(--light-bg);
+    background: rgba(0, 4, 33, 0.7);
+    backdrop-filter: blur(4.5px);
     z-index: 9999;
-    transition: .5s;
+    transition: 0.5s;
   }
   .nav-links a {
     display: block;
@@ -114,19 +115,21 @@ nav svg {
   font-size: 2rem;
 }
 .lots .row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 1em;
+  grid-row-gap: 1em;
   margin-top: 2em;
 }
 .lots .row .col {
   background: var(--light-bg);
   box-shadow: hsl(0, 0%, 80%) 0 0 2px;
-  padding: 1em;
+  padding: 0.5em;
   color: #000;
 }
-.lots .row {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 1em;
-  grid-row-gap: 1em;
+.lots .row .col img {
+  height: 240px;
+  object-fit: cover;
 }
 .lot-title {
   font-size: 1.4rem;
@@ -155,11 +158,26 @@ nav svg {
 .lots .row .col button a {
   color: #fff;
 }
+@media (max-width: 1824px) {
+  .lots .row {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media (max-width: 1045px) {
+  .lots .row {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
 @media (max-width: 768px) {
   .lots {
     margin: var(--mobile-mrg);
     margin-top: 5em;
   }
+  .lots .row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 506px) {
   .lots .row {
     grid-template-columns: repeat(1, 1fr);
   }
@@ -259,5 +277,68 @@ footer {
 @media (max-width: 768px) {
   .bid-wrapper {
     width: fit-content;
+  }
+}
+
+/* === Cart === */
+.cart-container {
+  margin: var(--desktop-mrg);
+}
+.cart-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+.cart-box {
+  background: #fafafa;
+  color: var(--dark-bg);
+  padding: 0.5em;
+  display: flex;
+  gap: 1em;
+  align-items: center;
+  border-radius: 10px;
+}
+.cart-box .lot-price {
+  margin: 0 !important;
+}
+.cart-box img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+.group {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  gap: 1em;
+}
+.group p {
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+.cart-container a {
+  background: var(--light-bg);
+  border: 2px solid yellow;
+  border-radius: 5px;
+  padding: 10px 35px;
+  color: #000;
+  display: inline-block;
+  margin-top: 2em;
+}
+@media (max-width: 1366px) {
+  .cart-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media (max-width: 1086px) {
+  .cart-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 767px) {
+  .cart-container {
+    margin: var(--mobile-mrg);
+  }
+  .cart-wrapper {
+    grid-template-columns: repeat(1, 1fr);
   }
 }

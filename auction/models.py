@@ -49,11 +49,13 @@ class Lot(models.Model):
     increment = models.DecimalField(max_digits=10, decimal_places=2)
     auction_date = models.DateTimeField()
     endtime = models.DateTimeField()
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, editable=False)
     sold = models.BooleanField(default=False)
 
     class Meta:
         verbose_name_plural = "Lots"
         db_table = "lot"
+        ordering = ["-auction_date", "endtime"]
         indexes = [
             models.Index(fields=["name", "price", "increment"])
         ]
@@ -62,6 +64,16 @@ class Lot(models.Model):
         return reverse("auction:lot_bid_view", kwargs={
             "lot_id": self.id
         })
+
+    def clean(self):
+        """ Make sure buyer is the highest bidder """
+        if self.bid_set.all() and self.has_ended:
+            winner: User = self.bid_set.order_by("-bid").first().bidder
+
+            if self.buyer != winner:
+                raise ValidationError(_(f"The selected buyer is not the winner of the bid, please select {winner.username}."))
+
+            super().check()
 
     @property
     def is_ready(self):
