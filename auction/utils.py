@@ -9,11 +9,11 @@ def ensure_lot_winner():
     """
     
     while True:
-        lots = Lot.objects.filter(sold=True) # get lots that are not sold yet
+        lots = Lot.objects.filter(sold=False) # get lots that are not sold yet
         for lot in lots:
             if lot.has_ended:
                 lot.buyer = lot.bid_set.order_by("-bid").first().bidder
                 lot.sold = True
                 lot.save()
                 
-                sys.stdout.write(f"[INFO] Assigned buyer ({lot.buyer} to {lot.id})")
+                sys.stdout.write(f"[INFO] Assigned buyer ({lot.buyer}) to {lot.id}")

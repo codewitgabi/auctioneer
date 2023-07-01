@@ -83,7 +83,6 @@ class Lot(models.Model):
     @property
     def has_ended(self):
         t, mins = timeuntil(self.endtime).split(",")[0].split()
-        print(t, mins)
         return t == "0" and mins == "minutes"
 
     def __str__(self):
