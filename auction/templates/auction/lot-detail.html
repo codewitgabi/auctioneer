@@ -1,4 +1,5 @@
 {% extends "auction/base.html" %}
+{% load static %}
 {% block title %} {{ lot.name }} Bid {% endblock %}
 
 {% block content %}
@@ -49,92 +50,15 @@
 </section>
 
 <script>
-const origin = window.location.origin;
-
-let protocol = "ws:";
-const lot_id = JSON.parse(document.getElementById("lot_id").textContent);
-if (window.location.protocol === "https:") protocol = "wss:";
-const socket_url = `${protocol}//${window.location.host}/bid/${lot_id}/`;
-const bidInput = document.querySelector("#bid-move-amt");
-const bidBtn = document.querySelector("#bid-btn");
-let lotPrice = Number("{{ lot.price }}");
-const lotIncrementalValue = Number("{{ lot.increment }}");
-const biddersDisplayBox = document.querySelector("#bidders-display-box");
-
-const socket = new WebSocket(socket_url);
-
-socket.onopen = function (e) {
-socket.onmessage = function (e) {
-const data = JSON.parse(e.data);
-const bids = data.bids;
-
-if (data.type === "bids") {
-let bidders = "";
-for (let index in bids) {
-bidders += `<tr>
-<td class="sn">${Number(index) + 1}.</td>
-<td>${bids[index].bidder}</td>
-<td>$ ${bids[index].bid}</td>
-</tr>`;
-}
-biddersDisplayBox.innerHTML = bidders;
-}
-};
-};
-
-bidBtn.addEventListener("click", (e) => {
-fetch(`${origin}/get-lot-price/{{ lot.id }}/`)
-.then((response) => response.json())
-.then((data) => {
-lotPrice = data.lot_price;
-let setBid = bidInput.value;
-let bid = Number(setBid);
-
-if (bid <= lotPrice && setBid !== "") {
-// do validation here
-alert("Amount too small");
-return;
-}
-
-if (setBid === "") {
-bid = lotPrice + lotIncrementalValue;
-}
-
-console.log(bid, lotPrice);
-
-socket.send(
-JSON.stringify({
-bid: bid,
-})
-);
-});
-});
+  const origin = window.location.origin;
+  let lotPrice = Number("{{ lot.price }}");
+  const lotIncrementalValue = Number("{{ lot.increment }}");
+  const lot_id = JSON.parse(document.getElementById("lot_id").textContent);
+  const getLotEndtimeUrl = `${origin}/has-expired/{{ lot.id }}/`;
+  const getLotPriceURL = `${origin}/get-lot-price/{{ lot.id }}`;
+  const markAsSoldURL = `${origin}/mark-lot-as-sold/${lot_id}/`
 </script>
 
-<script>
-const getLotEndtimeUrl = `${origin}/has-expired/{{ lot.id }}/`;
-let interval;
-
-function lot_has_ended() {
-interval = window.setInterval(() => {
-fetch(getLotEndtimeUrl)
-.then((resp) => resp.json())
-.then((data) => {
-if (data.has_ended) {
-window.clearInterval(interval);
-mark_lot_as_sold(lot_id);
-window.location.href = "/";
-}
-});
-}, 1000);
-}
-
-lot_has_ended();
-
-function mark_lot_as_sold(lot_id) {
-const markAsSoldURL = `${origin}/mark-lot-as-sold/${lot_id}/`;
-fetch(markAsSoldURL);
-}
-</script>
+<script src="{% static 'js/util.js' %}"></script>
 
 {% endblock %}
