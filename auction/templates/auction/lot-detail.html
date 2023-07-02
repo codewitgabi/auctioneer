@@ -3,119 +3,138 @@
 
 {% block content %}
 
-<section class="main">
+<section class="main mob-mrg-top">
   {{ lot.id|json_script:"lot_id" }}
-  <div class="bid-wrapper">
-    <img src="{{ lot.lotimage_set.all.first.image_url }}" alt="lot-img" />
-    <h1>{{ lot.name }}</h1>
-    <p class="lot-desc">{{ lot.description }}</p>
-    <div class="bids-display">
-      <table>
-        <thead>
-          <tr>
-            <td class="sn">S/N</td>
-            <td>Bidders</td>
-            <td>Bids</td>
-          </tr>
-        </thead>
-        <tbody id="bidders-display-box"></tbody>
-      </table>
+
+  <div class="slideshow fade">
+    {% for img in lot.lotimage_set.all %}
+    <div class="slide">
+      <img src="{{ img.image_url }}" alt="lot-img">
     </div>
-    <button id="bid-btn" class="bid-incrementer">
-      Place Bid +$ {{ lot.increment|floatformat:"-3g" }}
-    </button>
-    <input
-      type="number"
-      placeholder="Enter a larger bid..."
-      id="bid-move-amt" />
+    {% endfor %}
+
+    <a class="Back" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="forward" onclick="plusSlides(1)">&#10095;</a>
   </div>
+  <div style="text-align:center">
+    {% for img in lot.lotimage_set.all %}
+    <span class="dots" onclick="currentSlide({{ forloop.counter }})"></span>
+    {% endfor %}
+  </div>
+
+  <h1>{{ lot.name }}</h1>
+  <p class="lot-desc">
+    {{ lot.description }}
+  </p>
+
+  <div class="bids-display">
+    <table>
+      <thead>
+        <tr>
+          <th class="sn">S/N</th>
+          <th>Bidders</th>
+          <th>Bids</th>
+        </tr>
+      </thead>
+      <tbody id="bidders-display-box"></tbody>
+    </table>
+  </div>
+  <button id="bid-btn" class="bid-incrementer">
+    Place Bid +$ {{ lot.increment|floatformat:"-3g" }}
+  </button>
+  <input
+  type="number"
+  placeholder="Enter a larger bid..."
+  id="bid-move-amt" />
 </section>
 
 <script>
-  let protocol = "ws:";
-  const lot_id = JSON.parse(document.getElementById("lot_id").textContent);
-  if (window.location.protocol === "https:") protocol = "wss:";
-  const socket_url = `${protocol}//${window.location.host}/bid/${lot_id}/`;
-  const bidInput = document.querySelector("#bid-move-amt");
-  const bidBtn = document.querySelector("#bid-btn");
-  let lotPrice = Number("{{ lot.price }}");
-  const lotIncrementalValue = Number("{{ lot.increment }}");
-  const biddersDisplayBox = document.querySelector("#bidders-display-box");
+const origin = window.location.origin;
 
-  const socket = new WebSocket(socket_url);
+let protocol = "ws:";
+const lot_id = JSON.parse(document.getElementById("lot_id").textContent);
+if (window.location.protocol === "https:") protocol = "wss:";
+const socket_url = `${protocol}//${window.location.host}/bid/${lot_id}/`;
+const bidInput = document.querySelector("#bid-move-amt");
+const bidBtn = document.querySelector("#bid-btn");
+let lotPrice = Number("{{ lot.price }}");
+const lotIncrementalValue = Number("{{ lot.increment }}");
+const biddersDisplayBox = document.querySelector("#bidders-display-box");
 
-  socket.onopen = function (e) {
-    socket.onmessage = function (e) {
-      const data = JSON.parse(e.data);
-      const bids = data.bids;
+const socket = new WebSocket(socket_url);
 
-      if (data.type === "bids") {
-        let bidders = "";
-        for (let index in bids) {
-          bidders += `<tr>
-          <td class="sn">${Number(index) + 1}.</td>
-          <td>${bids[index].bidder}</td>
-          <td>$ ${bids[index].bid}</td>
-          </tr>`;
-        }
-        biddersDisplayBox.innerHTML = bidders;
-      }
-    };
-  };
+socket.onopen = function (e) {
+socket.onmessage = function (e) {
+const data = JSON.parse(e.data);
+const bids = data.bids;
 
-  bidBtn.addEventListener("click", (e) => {
-    fetch(`http://${window.location.host}/get-lot-price/{{ lot.id }}/`)
-      .then((response) => response.json())
-      .then((data) => {
-        lotPrice = data.lot_price;
-        let setBid = bidInput.value;
-        let bid = Number(setBid);
+if (data.type === "bids") {
+let bidders = "";
+for (let index in bids) {
+bidders += `<tr>
+<td class="sn">${Number(index) + 1}.</td>
+<td>${bids[index].bidder}</td>
+<td>$ ${bids[index].bid}</td>
+</tr>`;
+}
+biddersDisplayBox.innerHTML = bidders;
+}
+};
+};
 
-        if (bid <= lotPrice && setBid !== "") {
-          // do validation here
-          alert("Amount too small");
-          return;
-        }
+bidBtn.addEventListener("click", (e) => {
+fetch(`${origin}/get-lot-price/{{ lot.id }}/`)
+.then((response) => response.json())
+.then((data) => {
+lotPrice = data.lot_price;
+let setBid = bidInput.value;
+let bid = Number(setBid);
 
-        if (setBid === "") {
-          bid = lotPrice + lotIncrementalValue;
-        }
+if (bid <= lotPrice && setBid !== "") {
+// do validation here
+alert("Amount too small");
+return;
+}
 
-        console.log(bid, lotPrice);
+if (setBid === "") {
+bid = lotPrice + lotIncrementalValue;
+}
 
-        socket.send(
-          JSON.stringify({
-            bid: bid,
-          })
-        );
-      });
-  });
+console.log(bid, lotPrice);
+
+socket.send(
+JSON.stringify({
+bid: bid,
+})
+);
+});
+});
 </script>
 
 <script>
-  const getLotEndtimeUrl = `http://${window.location.host}/has-expired/{{ lot.id }}/`;
-  let interval;
+const getLotEndtimeUrl = `${origin}/has-expired/{{ lot.id }}/`;
+let interval;
 
-  function lot_has_ended() {
-    interval = window.setInterval(() => {
-      fetch(getLotEndtimeUrl)
-        .then((resp) => resp.json())
-        .then((data) => {
-          if (data.has_ended) {
-            window.clearInterval(interval);
-            mark_lot_as_sold(lot_id);
-            window.location.href = "/";
-          }
-        });
-    }, 1000);
-  }
+function lot_has_ended() {
+interval = window.setInterval(() => {
+fetch(getLotEndtimeUrl)
+.then((resp) => resp.json())
+.then((data) => {
+if (data.has_ended) {
+window.clearInterval(interval);
+mark_lot_as_sold(lot_id);
+window.location.href = "/";
+}
+});
+}, 1000);
+}
 
-  lot_has_ended();
+lot_has_ended();
 
-  function mark_lot_as_sold(lot_id) {
-    const markAsSoldURL = `http://localhost:8000/mark-lot-as-sold/${lot_id}/`;
-    fetch(markAsSoldURL);
-  }
+function mark_lot_as_sold(lot_id) {
+const markAsSoldURL = `${origin}/mark-lot-as-sold/${lot_id}/`;
+fetch(markAsSoldURL);
+}
 </script>
 
 {% endblock %}

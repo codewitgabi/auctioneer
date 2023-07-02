@@ -5,69 +5,53 @@
 
 {% block content %}
 
-<!--  Main Section -->
-<section class="main">
-  <h1 class="header">Auctioneer!</h1>
-  <p class="intro-text">
-    Welcome to our esteemed auction site, where the thrill of bidding meets the
-    convenience of modern technology. Here, we invite you to embark on a
-    captivating journey through a virtual world of treasures, where remarkable
-    items from around the globe await your discovery and ownership.
-  </p>
-  <p class="intro-text">
-    At our auction site, we are dedicated to connecting passionate collectors,
-    discerning enthusiasts, and connoisseurs with an unparalleled selection of
-    extraordinary items. Whether you seek rare works of art, exquisite jewelry,
-    vintage automobiles, memorabilia from your favorite celebrities, or unique
-    artifacts that hold a piece of history, our virtual halls are filled with an
-    eclectic array of offerings to satisfy even the most discerning tastes.
-  </p>
-  <p class="intro-text">
-    With a user-friendly interface and intuitive navigation, our auction site
-    ensures a seamless and immersive experience for both buyers and sellers.
-    From the comfort of your home or while on the go, you can explore our vast
-    catalog, peruse detailed descriptions and high-resolution images, and
-    participate in bidding wars with ease. Our platform provides a secure
-    environment, protecting your personal information and facilitating
-    transparent transactions.
-  </p>
-  <a href="#!" id="get-started">Get Started</a>
-</section>
-<!--  End Main Section -->
+  <!-- === Main Section === -->
+  <section class="main mob-mrg-top">
+    <div class="intro-text">
+      <p>
+        <strong>Welcome</strong> to our esteemed auction site, where the thrill of bidding meets the convenience of modern technology. Here, we invite you to embark on a captivating journey through a virtual world of treasures, where remarkable items from around the globe await your discovery and ownership.
+      </p>
+      <p>
+        At our auction site, we are dedicated to connecting passionate collectors, discerning enthusiasts, and connoisseurs with an unparalleled selection of extraordinary items. Whether you seek rare works of art, exquisite jewelry, vintage automobiles, memorabilia from your favorite celebrities, or unique artifacts that hold a piece of history, our virtual halls are filled with an eclectic array of offerings to satisfy even the most discerning tastes.
+      </p>
 
-<!-- Lots Section -->
-<section class="lots">
-  <h2>Upcoming Auctions</h2>
-
-  <div class="row">
-    {% for lot in lots %}
-    <div class="col">
-      <img src="{{  lot.lotimage_set.all.first.image_url }}" alt="" />
-      <legend class="lot-title">{{ lot.name }}</legend>
-      <p class="lot-description">{{ lot.description|truncatechars:"75" }}</p>
-      <span class="lot-price">$ {{ lot.price|floatformat:"-3g" }}</span>
-      <br />
-      <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em"
-        >BEGINS</span
-      >
-      <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em"
-        >{{ lot.auction_date|date:"d/m/Y h:i A" }}</span
-      >
-      <br />
-      <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em"
-        >ENDS
-      </span>
-      <span style="font-size: 0.7rem; display: inline-block; margin-top: 0.7em">
-        {{ lot.endtime|date:"d/m/Y h:i A" }}</span
-      >
-      <br />
-      {% if lot.is_ready and not lot.has_ended %}
-          {% display_button_to_lot_bidding request.user lot %}
-      {% endif %}
+      <p>
+        With a user-friendly interface and intuitive navigation, our auction site ensures a seamless and immersive experience for both buyers and sellers. From the comfort of your home or while on the go, you can explore our vast catalog, peruse detailed descriptions and high-resolution images, and participate in bidding wars with ease. Our platform provides a secure environment, protecting your personal information and facilitating transparent transactions.
+      </p>
     </div>
-    {% endfor %}
-  </div>
-</section>
-<!-- End Lots Section -->
+
+    <a href="#!" id="get-started-btn">Get Started</a>
+  </section>
+
+  <section class="sub-main">
+    <h2>Upcoming Events</h2>
+    <div class="lots-row">
+      {% for lot in lots %}
+      <div class="lot-col">
+        <img src="{{  lot.lotimage_set.all.first.image_url }}" alt="lot-img">
+        <div class="content">
+          <h3>{{ lot.name }}</h3>
+          <p>
+            {{ lot.description|truncatechars:"75" }}
+          </p>
+          <legend class="lot-price">$ {{ lot.price|floatformat:"-3g" }}</legend>
+          <div class="lot-time-data">
+            <div class="flex-sb">
+              <span>Start Time</span>
+              <small>{{ lot.auction_date|date:"d-m-Y h:i A" }}</small>
+            </div>
+            <div class="flex-sb">
+              <span>End Time</span>
+              <small>{{ lot.endtime|date:"d-m-Y h:i A" }}</small>
+            </div>
+          </div>
+          {% if lot.is_ready and not lot.has_ended %}
+            {% display_button_to_lot_bidding request.user lot %}
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
 
 {% endblock %}
