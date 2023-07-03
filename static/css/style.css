@@ -290,7 +290,8 @@ footer {
 .lot-desc {
   font-size: 1rem;
 }
-.bids-display {
+.bids-display,
+.cart-items-display {
   margin-top: 2em;
   overflow: auto;
 }
@@ -328,4 +329,24 @@ tr td {
   font-family: "Kanit", sans-serif;
   display: inline-block;
   margin-top: 1em;
+}
+
+/* === Cart Section === */
+.checkout-btn {
+  background: var(--blue);
+  color: var(--white);
+  padding: 10px 35px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 3em;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  width: max-content;
+}
+tr td > img {
+  width: 100%;
+  max-height: 75px;
+  object-fit: center;
 }

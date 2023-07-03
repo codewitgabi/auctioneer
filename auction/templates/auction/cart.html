@@ -3,20 +3,43 @@
 
 
 {% block content %}
-<div class="cart-container">
-  <div class="cart-wrapper">
-    {% for item in request.user.lot_set.all %}
-    <div class="cart-box">
-      <img src="{{ item.lotimage_set.all.first.image_url}}" alt="lot-image" />
-      <div class="group">
-        <p class="lot-name">{{ item.name }}</p>
-        <p class="lot-price">$ {{ item.price|floatformat:"-3g" }}</p>
-      </div>
-    </div>
-    {% empty %}
-    <h3>No won lot yet!</h3>
-    {% endfor %}
+<section class="main mob-mrg-top">
+  <div class="cart-display">
+    <table>
+      <thead>
+        <tr>
+          <th>S/N</th>
+          <th>Lot</th>
+          <th>Image</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in request.user.lot_set.all %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ item.name }}</td>
+          <td><img src="{{ item.lotimage_set.all.first.image.url }}" alt="lot-img"></td>
+          <td>$ {{ item.price|floatformat:"-3g" }}</td>
+        </tr>
+
+        {% empty %}
+          <h3>No won lot yet!</h3>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
-  <a href="#!">Proceed To Checkout</a>
-</div>
+
+  {% if request.user.lot_set.all %}
+    <a href="#!" class="checkout-btn">
+      <span>Proceed To Checkout</span>
+      <i class="bi bi-arrow-right"></i>
+    </a>
+  {% else %}
+  <a href="{% url 'auction:home' %}" class="checkout-btn">
+    <i class="bi bi-arrow-left"></i>
+    <span>Continue Bidding</span>
+  </a>
+  {% endif %}
+</section>
 {% endblock %}
