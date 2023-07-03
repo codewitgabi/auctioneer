@@ -1,0 +1,26 @@
+{% extends "auction/base.html" %} 
+{% block title %} Auctioneer: Checkout {% endblock %}
+
+
+{% block content %}
+
+<!-- Checkout Section === -->
+<section class="main mob-mrg-top">
+  <h2>Checkout</h2>
+
+  <form id="checkout-form" action="" method="post">
+  {% csrf_token %}
+    <div class="flex">
+      <input type="text" name="first_name" placeholder="First Name" required/>
+      <input type="text" name="last_name" placeholder="Last Name" required/>
+    </div>
+    <div class="flex">
+      <input type="email" name="email" value="{{ request.user.email }}" required placeholder="Email"/>
+      <input type="text" name="state" placeholder="State" required/>
+    </div>
+
+    <button class="checkout-btn" type="submit">Make Payment</button>
+  </form>
+</section>
+{% endblock %}
+

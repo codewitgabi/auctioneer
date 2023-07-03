@@ -44,6 +44,16 @@ def cart_view(request):
     """
     context: dict = {}
     return render(request, "auction/cart.html", context)
+    
+    
+@login_required
+def checkout(request):
+    """
+    View to make payment
+    """
+    
+    context: dict = {}
+    return render(request, "auction/checkout.html", context)
 
 
 @api_view(["GET"])
