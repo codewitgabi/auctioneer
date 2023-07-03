@@ -25,7 +25,7 @@
       <form id="auth-form" method="post">
       {% csrf_token %}
         {{ form.username }}
-        {% block password_input %} {% endblock %}
+        {% block other_fields %} {% endblock %}
         <button type="submit" class="auth-btn">
           {% block btn_text %}    
           {% endblock %}

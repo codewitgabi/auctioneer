@@ -15,6 +15,17 @@ class UserRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["password2"].required = False
+        
+    email = forms.EmailField(
+        label="",
+        required=True,
+        widget=forms.TextInput(attrs={
+            "name": "email",
+            "type": "email",
+            "id": "email",
+            "placeholder": "Email"
+        })
+    )
 
     username = forms.CharField(
         label="",
@@ -22,7 +33,7 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.TextInput(attrs={
             "name": "username",
             "id": "username",
-                    "placeholder": "Username",
+            "placeholder": "Username",
         })
     )
 
@@ -32,14 +43,14 @@ class UserRegistrationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={
             "type": "password",
             "name": "password",
-                    "id": "password",
-                    "placeholder": "Password"
+            "id": "password",
+            "placeholder": "Password"
         })
     )
 
     class Meta:
         model = User
-        fields = ("username", "password1")
+        fields = ("email", "username", "password1")
 
     def clean_password1(self, *args, **kwargs):
         symbols = "@#_~[]{}()$&?%/"
@@ -67,16 +78,22 @@ class LoginForm(AuthenticationForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["username"].widget.attrs.update({
-            "placeholder": "Username",
-            "id": "username",
-            "name": "username"
-        })
         self.fields["password"].widget.attrs.update({
             "placeholder": "Password",
             "id": "password",
             "name": "password"
         })
+        
+    username = forms.CharField(
+        label="",
+        required=True,
+        widget=forms.TextInput(attrs={
+            "type": "email",
+            "name": "email",
+            "id": "email",
+            "placeholder": "Email",
+        })
+    )
 
     class Meta:
         model = User
