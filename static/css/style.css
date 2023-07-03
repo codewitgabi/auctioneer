@@ -33,9 +33,17 @@ strong {
   justify-content: space-between;
   align-items: center;
 }
+.bi {
+  font-size: 1.2rem;
+}
+.bi-list,
+.bi-x {
+  font-size: 2rem;
+  font-weight: 900;
+}
 @media (max-width:768px) {
   .mob-mrg-top {
-    margin-top: 3.2em!important;
+    margin-top: 3.6em!important;
   }
 }
 
@@ -66,7 +74,8 @@ nav a {
     right: 0;
     left: 0;
     background: var(--white);
-    padding: 1em 1.5em;
+    padding: 0.5em 1.5em;
+    z-index: 200;
   }
   .nav-links {
     background: rgba(0, 12, 33, 0.7);
@@ -79,7 +88,7 @@ nav a {
     position: fixed;
     width: 100%;
     height: 100vh;
-    top: 3.49em;
+    top: 3.9em;
     right: -100%;
     bottom: 0;
     z-index: 9999;
@@ -208,13 +217,22 @@ footer {
 .icons-display {
   margin: 0.5em;
 }
+.icons-display a {
+  margin: 0 1em;
+  color: #000;
+}
+.icons-display a:first-child {
+  margin-left: 0;
+}
+.icons-display a:last-child {
+  margin-right: 0;
+}
 
 /* === Carousel === */
 .slideshow {
   max-width: 1000px;
   position: relative;
   margin: auto;
-  z-index: -2;
 }
 .slide {
   display: none;
@@ -232,7 +250,6 @@ footer {
   transition: 0.4s ease;
   border-radius: 0 5px 5px 0;
   user-select: none;
-  z-index: 2;
 }
 .forward {
   right: 0;
