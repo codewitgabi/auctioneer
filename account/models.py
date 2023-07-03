@@ -19,5 +19,10 @@ class User(AbstractUser):
 	USERNAME_FIELD = "email"
 	REQUIRED_FIELDS = ["username"]
 	
+	@property
+	def get_cart_price(self):
+	    count: int = 0
+	    return [count + float(lot.price) for lot in self.lot_set.all()][0]
+	
 	def __str__(self):
-		return self.username
+	    return self.username
