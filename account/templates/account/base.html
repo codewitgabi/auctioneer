@@ -11,30 +11,16 @@
 <body>
   <div class="main-wrapper">
     <div class="form-wrapper">
+    
       <h2 class="heading">
         {% block form_heading %}
         {% endblock %}
       </h2>
-      <div class="error-texts">
-        {% if form.errors %}
-          {% for error in form.errors.values %}
-            {{ error }}
-          {% endfor %}
-        {% endif %}
-      </div>
-      <form id="auth-form" method="post">
-      {% csrf_token %}
-        {{ form.username }}
-        {% block other_fields %} {% endblock %}
-        <button type="submit" class="auth-btn">
-          {% block btn_text %}    
-          {% endblock %}
-        </button>
-      </form>
-      <span class="form-footer">
-      {% block form_footer %}
+      
+      {% block content %}
+      
       {% endblock %}
-      </span>
+      
     </div>
   </div>
 </body>

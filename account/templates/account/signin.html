@@ -1,11 +1,41 @@
-{% extends "account/base.html" %}
-{% block title %} Auctioneer: Sign In {% endblock %}
-
-{% block form_heading %}Login To Your Account{% endblock %}
-{% block other_fields %} {{ form.password }} {% endblock %}
-
-{% block btn_text %} Sign In {% endblock %}
-       
-{% block form_footer %}
-Not signed up yet? <a href="{% url 'account:signup' %}">Sign Up
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+  <title>Auctioneer: Sign In</title>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="form-wrapper">
+      <h2 class="heading">Login To Your Account</h2>
+      
+      <!-- === Form Error Message Display === -->
+      <div class="error-texts">
+        {% if form.errors %}
+          {% for error in form.errors.values %}
+            {{ error }}
+          {% endfor %}
+        {% endif %}
+      </div>
+      
+      <!-- === Login Form === -->
+      <form id="auth-form" method="post">
+      {% csrf_token %}
+        {{ form.username }}
+        {{ form.password }}
+        <div class="left-align">
+            <a href="{% url 'password_reset' %}" id="forgot-password"><i>Forgot Password?</i></a>
+        </div>
+        <button type="submit" class="auth-btn">Sign In</button>
+      </form>
+      
+      <span class="form-footer">Not signed up yet? <a href="{% url 'account:signup' %}">Sign Up</span>
+      
+    </div>
+  </div>
+</body>
+</html>

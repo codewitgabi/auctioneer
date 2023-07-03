@@ -129,6 +129,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "account.User"
 
+# email config
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
+EMAIL_USE_SSL = True
+DEFAULT_FROM_EMAIL = "Auctioneer<no_reply@domain.com>"
+
 LOGIN_URL = "account:signin"
 LOGIN_REDIRECT_URL = "auction:home"
 LOGOUT_REDIRECT_URL = "account:signin"
