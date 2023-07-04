@@ -78,14 +78,14 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 
 DATABASES = {
-    'default': {
-        'ENGINE': "django.db.backends.postgresql",
-        'NAME': os.environ.get("DB_NAME"),
-        "USER": os.environ.get("DB_USER"),
-        "PASSWORD": os.environ.get("DB_PASSWORD"),
-        "HOST": os.environ.get("DB_HOST"),
-        "PORT": os.environ.get("DB_PORT"),
-    }
+     'default': {
+         'ENGINE': "django.db.backends.postgresql",
+         'NAME': os.environ.get("DB_NAME"),
+         "USER": os.environ.get("DB_USER"),
+         "PASSWORD": os.environ.get("DB_PASSWORD"),
+         "HOST": os.environ.get("DB_HOST"),
+         "PORT": os.environ.get("DB_PORT"),
+     }
 }
 
 
@@ -147,7 +147,7 @@ EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = os.environ.get("EMAIL_PORT")
 EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASSWORD")
-EMAIL_USE_SSL = True
+EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = "Auctioneer<no_reply@domain.com>"
 
 LOGIN_URL = "account:signin"
