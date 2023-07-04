@@ -1,0 +1,377 @@
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau+Infant:ital,wght@1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+:root {
+  --light-green: #71b390;
+  --blue: #0554f2;
+  --white: #ffffff;
+}
+body {
+  font-family: 'Kanit', sans-serif;
+}
+/* === Global Styles === */
+a {
+  color: var(--blue);
+}
+img {
+  width: 100%;
+}
+.disp-only-sm {
+  display: none;
+}
+strong {
+  font-size: 1.5rem;
+}
+.flex-sb {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.rdc {
+  padding: 10px!important;
+  font-size: 0.8rem!important;
+}
+.bi {
+  font-size: 1.2rem;
+}
+.bi-list,
+.bi-x {
+  font-size: 2rem;
+  font-weight: 900;
+}
+@media (max-width:768px) {
+  .mob-mrg-top {
+    margin-top: 3.6em!important;
+  }
+}
+
+/* === Navbar === */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: hsl(0, 0%, 85%) 0 0 10px;
+  padding: 1em 8%;
+}
+nav a {
+  font-weight: 600;
+}
+.nav-links a {
+  margin-left: 1em;
+}
+.nav-links a:first-child {
+  margin-left: 0!important;
+}
+@media (max-width: 768px) {
+  .disp-only-sm {
+    display: block;
+  }
+  nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    background: var(--white);
+    padding: 0.5em 1.5em;
+    z-index: 9000;
+  }
+  .nav-links {
+    background: rgba(0, 12, 33, 0.7);
+    box-shadow: 0 40px 60px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(4.5px);
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+    gap: 1.4em;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    top: 3.9em;
+    right: -100%;
+    bottom: 0;
+    z-index: 9999;
+    transition: all ease-out 0.5s;
+  }
+  .nav-links a {
+    margin-left: 0;
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 1em;
+  }
+}
+
+/* === Main Section ===*/
+.main {
+  margin: 1em 8%;
+  margin-bottom: 0;
+  font-size: 1.3rem;
+}
+.intro-text p {
+  margin-bottom: 1.3em;
+}
+.intro-text p:last-child {
+  margin-bottom: 0!important;
+}
+#get-started-btn {
+  background: var(--blue);
+  padding: 10px 35px;
+  border-radius: 5px;
+  color: var(--white);
+  display: inline-block;
+  margin-top: 1em;
+  font-size: 1.1rem;
+}
+
+@media (max-width:768px) {
+  .main {
+    margin: 0 1em;
+  }
+}
+
+/* === Sub Main Section === */
+.sub-main {
+  margin: 2em 8%;
+  margin-bottom: 0;
+}
+.lots-row {
+  margin-top: 1.2em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 1em;
+  row-gap: 1em;
+}
+.lot-col {
+  background: #fff;
+  box-shadow: hsl(0, 0%, 80%) 0 0 3px;
+}
+.lot-col img {
+  height: 250px;
+  object-fit: cover;
+}
+.lot-col .content {
+  padding: 0.5em;
+}
+.lot-col .content p,
+.lot-col .content h3,
+.lot-col .content legend {
+  margin-top: 0.5em;
+}
+.lot-price {
+  font-weight: 600;
+}
+.lot-time-data {
+  margin-top: 1em;
+  font-weight: 500;
+}
+.bid-link {
+  display: inline-block;
+  margin-top: 1em;
+  background: var(--blue);
+  color: var(--white);
+  padding: 10px 30px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .sub-main {
+    margin: 2em 1em;
+    margin-bottom: 0;
+  }
+  .lots-row {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* === Newsletter === */
+.newsletter {
+  margin: 3rem 8%;
+  margin-bottom: 0;
+  font-weight: 700;
+}
+#email {
+  display: inline-block;
+  margin-top: 2em;
+  width: 400px;
+  padding: 15px;
+  font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+  .newsletter {
+    margin: 1.5em 1em;
+    margin-bottom: 0;
+  }
+  #email {
+    width: 100%;
+  }
+}
+
+/* === Footer === */
+footer {
+  text-align: center;
+  padding: 1.5em 0;
+}
+.icons-display {
+  margin: 0.5em;
+}
+.icons-display a {
+  margin: 0 1em;
+  color: #000;
+}
+.icons-display a:first-child {
+  margin-left: 0;
+}
+.icons-display a:last-child {
+  margin-right: 0;
+}
+
+/* === Carousel === */
+.slideshow {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
+.slide {
+  display: none;
+}
+.Back, .forward {
+  cursor: pointer;
+  position: absolute;
+  top: 48%;
+  width: auto;
+  margin-top: -23px;
+  padding: 17px;
+  color: grey;
+  font-weight: bold;
+  font-size: 19px;
+  transition: 0.4s ease;
+  border-radius: 0 5px 5px 0;
+  user-select: none;
+}
+.forward {
+  right: 0;
+  border-radius: 4px 0 0 4px;
+}
+.Back:hover, .forward:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+.dots {
+  cursor: pointer;
+  height: 16px;
+  width: 16px;
+  margin: 0 3px;
+  background-color: #acc;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.5s ease;
+}
+.enable, .dots:hover {
+  background-color: #717161;
+}
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.4s;
+  animation-name: fade;
+  animation-duration: 1.4s;
+}
+@-webkit-keyframes fade {
+  from {
+    opacity: .5
+  }
+  to {
+    opacity: 2
+  }
+}
+
+/* === Lot Detail */
+.lot-desc {
+  font-size: 1rem;
+}
+.bids-display,
+.cart-items-display {
+  margin-top: 2em;
+  overflow: auto;
+}
+table {
+  width: 100%;
+  border-spacing: 1em;
+  overflow: ellipsis;
+  text-align: left;
+}
+tr th {
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+tr td {
+  font-size: 1.2rem;
+  text-overflow: ellipsis;
+  vertical-align: top;
+  white-space: nowrap;
+}
+#bid-btn {
+  width: 100%;
+  padding: 10px;
+  background: var(--blue);
+  color: var(--white);
+  font-family: "Kanit", sans-serif;
+  border: none;
+  border-radius: 4px;
+  font-size: 1.05rem;
+}
+#bid-move-amt {
+  width: 100%;
+  padding: 12px;
+  font-size: 1.05rem;
+  font-weight: 900;
+  font-family: "Kanit", sans-serif;
+  display: inline-block;
+  margin-top: 1em;
+}
+
+/* === Cart Section === */
+.checkout-btn {
+  background: var(--blue);
+  color: var(--white);
+  padding: 10px 35px;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 3em;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  width: max-content;
+  border: none;
+}
+tr td > img {
+  width: 100%;
+  max-height: 75px;
+  object-fit: center;
+}
+
+/* === Checkout Section === */
+.flex {
+  display: flex;
+  gap: 0.5em;
+  margin: 0.5em 0;
+}
+#checkout-form input {
+  width: 100%;
+  padding: 12px;
+  font-family: "Kanit", sans-serif;
+  outline: none;
+  border-radius: 4px;
+}
+.payment-wrapper {
+  margin: 0 auto;
+  max-width: 600px;
+  margin-top: 2em;
+  display: none;
+}

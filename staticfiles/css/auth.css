@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@200&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+.alert {
+  padding: 0.5em;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: left;
+  max-width: 500px;
+}
+.alert-info {
+  background: #d5d5d5;
+  color: #000;
+}
+body {
+  background: #27282c;
+  color: #fff;
+  font-family: "Kanit", sans-serif;
+}
+:root {
+  --inline-block: inline-block;
+}
+a {
+  color: #fff;
+}
+.main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.form-wrapper {
+  margin: 0 2em;
+  text-align: center;
+}
+.heading {
+  margin: 1.5em 0;
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+.error-texts {
+  font-size: 0.9rem;
+  color: red;
+  margin-bottom: 1.5em;
+}
+.error-texts ul {
+  margin-left: 1.5em;
+  text-align: left;
+}
+#auth-form input {
+  width: 100%;
+  display: var(--inline-block);
+  margin: 0.5em 0;
+  padding: 12px;
+  background: #fff;
+  border-radius: 50px;
+  border: none;
+  outline: none;
+  font-family: "Kanit", sans-serif;
+}
+.auth-btn {
+  display: var(--inline-block);
+  padding: 10px 35px;
+  background: #e4eaf2;
+  border: 2px solid #8fa5b2;
+  border-radius: 10px 50px 10px 50px;
+  margin-top: 1em;
+  font-family: "Kanit", sans-serif;
+}
+.form-footer {
+  font-size: 0.9rem;
+  display: var(--inline-block);
+  margin: 2em 0;
+  font-weight: 400;
+}
+.form-footer a {
+  text-decoration: none;
+  color: orange;
+}
+.left-align {
+    text-align: left;
+}
+#forgot-password {
+  display: inline-block;
+  margin: 0.5em 0;
+  font-size: 0.8rem;
+  color: orange;
+}
+.link-btn {
+  display: inline-block;
+  margin-top: 2em;
+  background: #71b390;
+  padding: 8px 30px;
+  border-radius: 50px;
+  font-weight: 900;
+}
