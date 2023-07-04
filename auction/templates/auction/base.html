@@ -5,13 +5,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="icon" href="{% static 'icons8-auction-flatart-icons-blue-96.png' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
   <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
   <!-- Nav Section -->
   <nav>
-    <a href="{% url 'auction:home' %}">Auctioneer</a>
+    <a href="{% url 'auction:home' %}"><img width="30px" height="30px" src="{% static 'icons8-auction-flatart-icons-blue-96.png' %}"/></a>
     <i id="nav-toggler" class="bi bi-list disp-only-sm"></i>
     <div class="nav-links" id="nav-links">
       <a href="#!">
