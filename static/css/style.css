@@ -75,7 +75,7 @@ nav a {
     left: 0;
     background: var(--white);
     padding: 0.5em 1.5em;
-    z-index: 200;
+    z-index: 9000;
   }
   .nav-links {
     background: rgba(0, 12, 33, 0.7);
@@ -364,4 +364,10 @@ tr td > img {
   font-family: "Kanit", sans-serif;
   outline: none;
   border-radius: 4px;
+}
+.payment-wrapper {
+  margin: 0 auto;
+  max-width: 600px;
+  margin-top: 2em;
+  display: none;
 }

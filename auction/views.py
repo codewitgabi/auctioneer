@@ -1,8 +1,12 @@
+import json
+
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
+
 from .models import Lot, Bid
 
 
@@ -52,7 +56,9 @@ def checkout(request):
     View to make payment
     """
     
-    context: dict = {}
+    context: dict = {
+        "PAYPAL_CLIENT_ID": settings.PAYPAL_CLIENT_ID,
+    }
     return render(request, "auction/checkout.html", context)
 
 
@@ -92,3 +98,13 @@ def get_lot_price(request, lot_id):
     lot = get_object_or_404(Lot, id=lot_id)
 
     return Response({"lot_price": float(lot.price)}, status=status.HTTP_200_OK)
+
+
+@api_view(["POST"])
+def verify_payment(request):
+    """
+    Verifies payment
+    """
+    data = json.loads(request.body)
+    
+    pass

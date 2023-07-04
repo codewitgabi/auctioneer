@@ -152,3 +152,5 @@ CHANNEL_LAYERS = {
 		}
 	}
 }
+
+PAYPAL_CLIENT_ID = os.environ.get("PAYPAL_CLIENT_ID")

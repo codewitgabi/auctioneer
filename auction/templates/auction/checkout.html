@@ -1,26 +1,42 @@
-{% extends "auction/base.html" %} 
+{% extends "auction/base.html" %}
+{% load static %}
 {% block title %} Auctioneer: Checkout {% endblock %}
 
 
 {% block content %}
 
-<!-- Checkout Section === -->
-<section class="main mob-mrg-top">
-  <h2>Checkout</h2>
-
-  <form id="checkout-form" action="" method="post">
-  {% csrf_token %}
-    <div class="flex">
-      <input type="text" name="first_name" placeholder="First Name" required/>
-      <input type="text" name="last_name" placeholder="Last Name" required/>
-    </div>
-    <div class="flex">
-      <input type="email" name="email" value="{{ request.user.email }}" required placeholder="Email"/>
-      <input type="text" name="state" placeholder="State" required/>
-    </div>
-
-    <button class="checkout-btn" type="submit">Make Payment</button>
-  </form>
-</section>
+    <!-- Checkout Section === -->
+    <section class="main mob-mrg-top">
+      <h2>Checkout</h2>
+    
+      <form id="checkout-form" action="" method="post">
+      {% csrf_token %}
+        <div class="flex">
+          <input type="text" name="first_name" placeholder="First Name" required/>
+          <input type="text" name="last_name" placeholder="Last Name" required/>
+        </div>
+        <div class="flex">
+          <input type="email" name="email" value="{{ request.user.email }}" required placeholder="Email"/>
+          <input type="text" name="state" placeholder="State" required/>
+        </div>
+    
+        <button class="checkout-btn" type="submit">Make Payment</button>
+      </form>
+      
+      <div class="payment-wrapper">
+          <div id="paypal-button-container"></div>
+      </div>
+      
+    </section>
+    
+    <script src="https://www.paypal.com/sdk/js?client-id={{PAYPAL_CLIENT_ID}}&currency=USD"></script>
+    
+    <script>
+        const origin = window.location.origin;
+        const cartTotal = "{{ request.user.get_cart_price }}";
+    </script>
+    
+   <script src="{% static 'js/checkout.js' %}"></script>
+    
 {% endblock %}
 
