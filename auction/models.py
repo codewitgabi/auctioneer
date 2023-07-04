@@ -18,23 +18,17 @@ class LotImage(models.Model):
         default=uuid.uuid4,
         editable=False
     )
-    image = models.ImageField(upload_to="property")
-    image_url = models.URLField(max_length=2048, editable=False, blank=True)
+    image = models.ImageField()
     lot = models.ForeignKey("Lot", on_delete=models.CASCADE)
 
     class Meta:
         verbose_name_plural = "Lot Images"
         indexes = [
-            models.Index(fields=["image_url"], name="img_idx")
+            models.Index(fields=["image"], name="img_idx")
         ]
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-        self.image_url = self.image.url
-        super().save(*args, **kwargs)
-
     def __str__(self):
-        return self.image_url
+        return self.image.url
 
 
 class Lot(models.Model):

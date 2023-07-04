@@ -4,19 +4,22 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DEBUG") != "False"
 
-ALLOWED_HOSTS = ["localhost", "127.0.0.1", "10.186.122.216"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "10.186.122.216",
+    "auctioneer.up.railway.app"
+]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "jazzmin",
     "channels",
     "whitenoise.runserver_nostatic",
     'django.contrib.admin',
@@ -25,7 +28,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    # other apps 
+    
     "rest_framework",
+    "cloudvault",
     "account.apps.AccountConfig",
     "auction.apps.AuctionConfig",
 ]
@@ -65,18 +72,20 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': "django.db.backends.postgresql",
+        'NAME': os.environ.get("DB_NAME"),
+        "USER": os.environ.get("DB_USER"),
+        "PASSWORD": os.environ.get("DB_PASSWORD"),
+        "HOST": os.environ.get("DB_HOST"),
+        "PORT": os.environ.get("DB_PORT"),
     }
 }
 
 
 # Password validation
-# https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -95,7 +104,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
@@ -111,7 +119,6 @@ TIME_INPUT_FORMATS = ('%I:%M %p',)
 DATE_INPUT_FORMATS = ("%Y-%m-%d",)
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
@@ -122,7 +129,6 @@ MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -154,3 +160,35 @@ CHANNEL_LAYERS = {
 }
 
 PAYPAL_CLIENT_ID = os.environ.get("PAYPAL_CLIENT_ID")
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Auctioneer",
+    "site_header": "Auctioneer",
+    "site_brand": "Auctioneer",
+    "welcome_sign": "Auctioneer Admin Dashboad",
+    "user_avatar": "avatar",
+    "copyright": "Auctioneer by codewitgabi",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+}
+
+# cloudinary config
+CLOUDINARY = {
+    'cloud_name': os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    'api_key': os.environ.get("CLOUDINARY_API_KEY"),
+    'api_secret': os.environ.get("CLOUDINARY_API_SECRET"),
+    "secure": True
+}
+
+DEFAULT_FILE_STORAGE = "cloudvault.cloud_storage.CloudinaryStorage"
+
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+CSRF_TRUSTED_ORIGINS = [
+	"http://localhost",
+	"https://auctiooneer.up.railway.app",
+]
+

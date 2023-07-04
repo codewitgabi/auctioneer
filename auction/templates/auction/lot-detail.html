@@ -10,7 +10,7 @@
   <div class="slideshow fade">
     {% for img in lot.lotimage_set.all %}
     <div class="slide">
-      <img src="{{ img.image_url }}" alt="lot-img">
+      <img src="{{ img.image.url }}" alt="lot-img">
     </div>
     {% endfor %}
 

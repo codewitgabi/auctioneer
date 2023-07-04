@@ -31,12 +31,12 @@
   </div>
 
   {% if request.user.lot_set.all %}
-    <a href="{% url 'auction:checkout' %}" class="checkout-btn">
+    <a href="{% url 'auction:checkout' %}" class="checkout-btn rdc">
       <span>Proceed To Checkout</span>
       <i class="bi bi-arrow-right"></i>
     </a>
   {% else %}
-  <a href="{% url 'auction:home' %}" class="checkout-btn">
+  <a href="{% url 'auction:home' %}" class="checkout-btn rdc">
     <i class="bi bi-arrow-left"></i>
     <span>Continue Bidding</span>
   </a>

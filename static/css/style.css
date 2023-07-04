@@ -33,6 +33,10 @@ strong {
   justify-content: space-between;
   align-items: center;
 }
+.rdc {
+  padding: 10px!important;
+  font-size: 0.8rem!important;
+}
 .bi {
   font-size: 1.2rem;
 }

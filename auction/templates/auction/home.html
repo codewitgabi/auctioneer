@@ -28,7 +28,7 @@
     <div class="lots-row">
       {% for lot in lots %}
       <div class="lot-col">
-        <img src="{{  lot.lotimage_set.all.first.image_url }}" alt="lot-img">
+        <img src="{{  lot.lotimage_set.all.first.image.url }}" alt="lot-img">
         <div class="content">
           <h3>{{ lot.name }}</h3>
           <p>
