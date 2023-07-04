@@ -5,7 +5,7 @@ from django.contrib.auth import views as auth_views
 from account.forms import ResetPasswordForm, SetNewPasswordForm
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/dashboard/', admin.site.urls),
     path("account/", include("account.urls")),
     path("", include("auction.urls")),
     path("password-reset/",
