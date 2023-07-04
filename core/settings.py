@@ -29,10 +29,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
-    # other apps 
+    # third party apps 
     
     "rest_framework",
     "cloudvault",
+    "email_verification.apps.EmailVerificationConfig",
+    
+    # custom apps
+    
     "account.apps.AccountConfig",
     "auction.apps.AuctionConfig",
 ]

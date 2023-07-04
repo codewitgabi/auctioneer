@@ -19,8 +19,7 @@ class User(AbstractUser):
 	
 	@property
 	def get_cart_price(self):
-	    count: int = 0
-	    return [count + float(lot.price) for lot in self.lot_set.all()][0]
+	    return float(sum([lot.price for lot in self.lot_set.all()]))
 	
 	def __str__(self):
 	    return self.username

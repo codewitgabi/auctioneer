@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/dashboard/', admin.site.urls),
     path("account/", include("account.urls")),
     path("", include("auction.urls")),
+    path("verify-email/", include("email_verification.urls")),
     path("password-reset/",
         auth_views.PasswordResetView.as_view(
             template_name= "account/password-reset.html",
