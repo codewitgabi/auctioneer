@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="{% static 'css/auth.css' %}">
   <title>Auctioneer: Sign In</title>
 </head>
@@ -32,7 +33,10 @@
       <form id="auth-form" method="post">
       {% csrf_token %}
         {{ form.username }}
-        {{ form.password }}
+        <div class="password-field">
+             {{ form.password }}
+            <i class="bi bi-eye-slash" id="eye"></i>
+        </div>
         <div class="left-align">
             <a href="{% url 'password_reset' %}" id="forgot-password"><i>Forgot Password?</i></a>
         </div>
@@ -43,5 +47,7 @@
       
     </div>
   </div>
+  
+  <script src="{% static 'js/eye-toggler.js' %}"></script>
 </body>
 </html>

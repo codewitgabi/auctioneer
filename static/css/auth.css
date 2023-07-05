@@ -38,6 +38,7 @@ a {
 .form-wrapper {
   margin: 0 2em;
   text-align: center;
+  width: 400px;
 }
 .heading {
   margin: 1.5em 0;
@@ -52,6 +53,16 @@ a {
 .error-texts ul {
   margin-left: 1.5em;
   text-align: left;
+}
+.password-field {
+  position: relative;
+}
+#eye {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  top: calc(50% - 9px);
+  color: #000;
 }
 #auth-form input {
   width: 100%;
