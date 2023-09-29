@@ -8,6 +8,10 @@ urlpatterns = [
     path("lot/bid/<uuid:lot_id>/", views.lot_bid_view, name="lot_bid_view"),
     path("cart/", views.cart_view, name="cart_details"),
     path("checkout/", views.checkout, name="checkout"),
+    path("toggle-user-as-marketer",
+        views.toggle_user_as_marketer,
+        name="toggle_user_as_marketer"),
+    path("auction/", views.add_auction, name="add_auction"),
     
     # API endpoints
     

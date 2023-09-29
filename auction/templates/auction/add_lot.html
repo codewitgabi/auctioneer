@@ -1,0 +1,27 @@
+{% extends "auction/base.html" %}
+{% block title %} Auctioneer | Add Lot {% endblock %}
+
+
+{% block content %}
+
+<!-- === Main Section === -->
+<section class="main mob-mrg-top">
+  <h2 class="mb">Add Lot</h2>
+  <form id="auction-form" action="" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Lot Name" required>
+    <div class="flex">
+      <input type="number" name="price" placeholder="Price" required>
+      <input type="number" name="increment" placeholder="Per lot increment" required>
+    </div>
+    <div class="flex">
+      <input type="datetime-local" name="auction_date" required>
+      <input type="datetime-local" name="endtime" required>
+    </div>
+    <textarea name="description" placeholder="Lot Description.." required></textarea>
+    <input type="file" name="lot_images" accept="image/*" name="" id="" multiple>
+    <button id="add-lot-btn">Create Lot</button>
+  </form>
+</section>
+
+{% endblock %}

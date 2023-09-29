@@ -1,17 +1,25 @@
 import json
+from uuid import uuid4
 
+from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models  import Group
 from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 
-from .models import Lot, Bid
+from .models import Lot, Bid, LotImage
+
+
+User = get_user_model()
 
 
 @login_required
-def home(request):
+#@permission_required("auction.add_lot", raise_exception=True)
+def home(request: HttpRequest):
     """
     Auctioneer Home Page
     """
@@ -25,7 +33,7 @@ def home(request):
 
 
 @login_required
-def lot_bid_view(request, lot_id):
+def lot_bid_view(request: HttpRequest, lot_id: uuid4):
     """
     Diplays the lot detail in full and shows bidding detail.
     Users can also place their bids here and see the bids of other users in realtime.
@@ -42,7 +50,7 @@ def lot_bid_view(request, lot_id):
 
 
 @login_required
-def cart_view(request):
+def cart_view(request: HttpRequest):
     """
     Displays all lots won by the current logged in user where they can proceed to the checkout for payment.
     """
@@ -51,7 +59,7 @@ def cart_view(request):
     
     
 @login_required
-def checkout(request):
+def checkout(request: HttpRequest):
     """
     View to make payment
     """
@@ -63,7 +71,7 @@ def checkout(request):
 
 
 @api_view(["GET"])
-def get_lot_has_endtime(request, lot_id):
+def get_lot_has_endtime(request: HttpRequest, lot_id: uuid4):
     """
     Checks if a lot has ended
     """
@@ -75,7 +83,7 @@ def get_lot_has_endtime(request, lot_id):
 
 
 @api_view(["GET"])
-def mark_lot_as_sold(request, lot_id):
+def mark_lot_as_sold(request: HttpRequest, lot_id: uuid4):
     """
     Marks a lot with the specified lot_id as sold and also mark the buyer of the lot as the highest bidder of that lot.
     """
@@ -89,7 +97,7 @@ def mark_lot_as_sold(request, lot_id):
 
 
 @api_view(["GET"])
-def get_lot_price(request, lot_id):
+def get_lot_price(request: HttpRequest, lot_id: uuid4):
     """
     Returns the lot price of a given lot.
     Used for updating the frontend lotPrice so that the lotPrice is set globally for all users bidding for the lot with the given lot_id
@@ -101,10 +109,55 @@ def get_lot_price(request, lot_id):
 
 
 @api_view(["POST"])
-def verify_payment(request):
+def verify_payment(request: HttpRequest):
     """
     Verifies payment
     """
     data = json.loads(request.body)
     
     pass
+
+
+@login_required
+def toggle_user_as_marketer(request: HttpRequest):
+    """
+    Add user to marketers `Group`
+    """
+    user = request.user
+    group = Group.objects.get_or_create(Group, name="Marketers")[0]
+    
+    if user.groups.filter(name=group).exists():
+        user.groups.remove(group)
+    else:
+        user.groups.add(group)
+    user.save()
+    
+    return redirect("auction:home")
+
+
+def add_auction(request: HttpRequest):
+    context: dict = {}
+    
+    if request.method == "POST":
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        start_date = request.POST.get("auction_date")
+        endtime = request.POST.get("endtime")
+        price = request.POST.get("price")
+        increment = request.POST.get("increment")
+        
+        newLot: Lot = Lot.objects.create(
+            name=name,
+            description=description,
+            price=price,
+            increment=increment,
+            endtime=endtime,
+            auction_date=start_date
+        )
+        
+        lot_images: list = request.FILES.getlist("lot_images")
+        for image in lot_images:
+            LotImage.objects.create(image=image, lot=newLot)
+        
+        return redirect("auction:add_auction")
+    return render(request, "auction/add_lot.html", context)
