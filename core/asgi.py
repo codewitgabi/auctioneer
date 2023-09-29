@@ -26,8 +26,13 @@ application = ProtocolTypeRouter({
 	)
 })
 
+
+
+
+
 t = Thread(target=ensure_lot_winner)
 t.start()
 
 email_thread = Thread(target=delete_inactive_users)
 email_thread.start()
+

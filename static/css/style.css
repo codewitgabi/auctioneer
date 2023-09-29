@@ -25,6 +25,9 @@ img {
 .disp-only-sm {
   display: none;
 }
+.mb {
+  margin-bottom: 1em;
+}
 strong {
   font-size: 1.5rem;
 }
@@ -32,6 +35,11 @@ strong {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }
 .rdc {
   padding: 10px!important;
@@ -56,7 +64,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: hsl(0, 0%, 85%) 0 0 10px;
+  box-shadow: hsl(0, 0%, 90%) 0 0 5px;
   padding: 1em 8%;
 }
 nav a {
@@ -104,6 +112,7 @@ nav a {
     display: flex;
     align-items: center;
     gap: 1em;
+    width: max-content;
   }
 }
 
@@ -119,7 +128,8 @@ nav a {
 .intro-text p:last-child {
   margin-bottom: 0!important;
 }
-#get-started-btn {
+#get-started-btn,
+#add-lot-btn {
   background: var(--blue);
   padding: 10px 35px;
   border-radius: 5px;
@@ -362,16 +372,55 @@ tr td > img {
   gap: 0.5em;
   margin: 0.5em 0;
 }
-#checkout-form input {
+#checkout-form input,
+#auction-form input,
+#auction-form textarea {
   width: 100%;
   padding: 12px;
   font-family: "Kanit", sans-serif;
   outline: none;
   border-radius: 4px;
 }
+#auction-form textarea {
+  height: 150px;
+}
 .payment-wrapper {
   margin: 0 auto;
   max-width: 600px;
   margin-top: 2em;
   display: none;
+}
+
+/* === Auction ==== */
+#add-lot-btn {
+  border: none;
+  font-family: "Kanit", sans-serif;
+}
+
+/* === Switch === */
+.switch {
+  width: 100px;
+  height: 40px;
+  background: #27282c;
+  position: relative;
+}
+.slider {
+  width: 50%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: teal;
+  transition: .25s;
+}
+.slider.on {
+  left: 50%;
+}
+.switch p {
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
 }
