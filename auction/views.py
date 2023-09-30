@@ -5,7 +5,7 @@ from django.http import HttpRequest
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models  import Group
+from django.contrib.auth.models  import Group, Permission
 from django.conf import settings
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -125,7 +125,10 @@ def toggle_user_as_marketer(request: HttpRequest):
     Add user to marketers `Group`
     """
     user = request.user
-    group = Group.objects.get_or_create(Group, name="Marketers")[0]
+    permission: Permission = Permission.objects.get(codename="add_lot")
+    group = Group.objects.get_or_create(name="Marketers")[0]
+    group.permissions.add(permission.id)
+    group.save()
     
     if user.groups.filter(name=group).exists():
         user.groups.remove(group)
