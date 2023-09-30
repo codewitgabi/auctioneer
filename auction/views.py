@@ -18,16 +18,17 @@ User = get_user_model()
 
 
 @login_required
-#@permission_required("auction.add_lot", raise_exception=True)
 def home(request: HttpRequest):
     """
     Auctioneer Home Page
     """
     # set session expiry to four days
+    print(request.user.has_perm("auction.add_lot"))
     request.session.set_expiry(24 * 4 * 60 * 60)
     lots = Lot.objects.filter(sold=False)[:20]
+    
     context: dict = {
-        "lots": lots
+        "lots": lots,
     }
     return render(request, "auction/home.html", context)
 
@@ -135,6 +136,8 @@ def toggle_user_as_marketer(request: HttpRequest):
     return redirect("auction:home")
 
 
+@login_required
+@permission_required("auction.add_lot", raise_exception=True)
 def add_auction(request: HttpRequest):
     context: dict = {}
     
