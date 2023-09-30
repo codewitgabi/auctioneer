@@ -25,5 +25,5 @@ application = ProtocolTypeRouter({
 	)
 })
 
-#t = Thread(target=ensure_lot_winner)
-#t.start()
+t = Thread(target=ensure_lot_winner)
+t.start()

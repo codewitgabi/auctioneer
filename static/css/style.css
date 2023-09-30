@@ -28,6 +28,9 @@ img {
 .mb {
   margin-bottom: 1em;
 }
+.mt {
+  margin-top: 1em;
+}
 strong {
   font-size: 1.5rem;
 }
@@ -39,7 +42,11 @@ strong {
 .flex-center {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 1em;
+}
+.uni {
+  color: #000;
 }
 .rdc {
   padding: 10px!important;
@@ -79,6 +86,12 @@ nav a {
 @media (max-width: 768px) {
   .disp-only-sm {
     display: block;
+  }
+  .disp-only-lg {
+    display: none;
+  }
+  .uni {
+    color: #fff;
   }
   nav {
     position: fixed;

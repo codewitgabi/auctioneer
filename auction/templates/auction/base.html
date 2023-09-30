@@ -10,6 +10,8 @@
   <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
+  <!-- context processor data -->
+  {{ user_has_perm_to_add_lot|json_script:"perm" }}
   <!-- Nav Section -->
   <nav>
     <a href="{% url 'auction:home' %}"><img width="30px" height="30px" src="{% static 'icons8-auction-flatart-icons-blue-96.png' %}"/></a>
@@ -46,16 +48,25 @@
         <i class="bi bi-github disp-only-sm"></i>
         <span>Github</span>
       </a>
-      <div>
-          <p class="mb" style="color: #fff;">Become a marketer?</p>
+      <div class="disp-only-sm">
+          <p class="mb uni">Become a marketer?</p>
           <div class="switch">
-              <div class="slider"></div>
+              <div class="slider" id="slider"></div>
               <p id="state">
                   OFF
               </p>
           </div>
         </div>
     </div>
+    <div class="disp-only-lg flex-center">
+        <p class="mb uni">Become a marketer?</p>
+         <div class="switch">
+             <div class="slider" id="slider"></div>
+             <p id="state">
+                OFF
+             </p>
+         </div>
+       </div>
   </nav>
   <!-- End Nav Section -->
 
