@@ -23,7 +23,6 @@ def home(request: HttpRequest):
     Auctioneer Home Page
     """
     # set session expiry to four days
-    print(request.user.has_perm("auction.add_lot"))
     request.session.set_expiry(24 * 4 * 60 * 60)
     lots = Lot.objects.filter(sold=False)[:20]
     
