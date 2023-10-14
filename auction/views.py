@@ -80,7 +80,19 @@ def checkout(request: HttpRequest):
     }
     return render(request, "auction/checkout.html", context)
 
+@api_view(["POST"])
+def mark_lot_as_paid(request):
+    data = request.data
+    lot_id = data.get("lot_id")
 
+    try:
+        lot = get_object_or_404(Lot, id=lot_id)
+        lot.paid = True
+        lot.save()
+        return Response({"message": "Lot marked as paid."}, status=status.HTTP_200_OK)
+    except:
+        return Response({"message": "Lot not found or could not be marked as paid."}, status=status.HTTP_400_BAD_REQUEST)
+        
 @api_view(["GET"])
 def get_lot_has_endtime(request: HttpRequest, lot_id: uuid4):
     """
