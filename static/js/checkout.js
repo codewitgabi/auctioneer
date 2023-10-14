@@ -21,6 +21,31 @@ paypal.Buttons({
   onApprove: (data, actions) => {
     return actions.order.capture().then(function(orderData) {
       console.log("Transaction Successful!!");
+      onst lotId = 'uuid4'; // Replace with the actual lot ID
+      const apiUrl = '/mark_lot_as_paid/';
+      const data = {
+        lot_id: lotId,
+      };
+
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (response.ok) {
+            // The lot has been successfully marked as paid
+            console.log('Lot marked as paid.');
+          } else {
+            // Handle the case where the request fails
+            console.error('Failed to mark the lot as paid.');
+          }
+        })
+        .catch((error) => {
+          console.error('An error occurred while marking the lot as paid:', error);
+        });
       window.location.href = "/";
     });
   }

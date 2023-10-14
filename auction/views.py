@@ -44,11 +44,22 @@ def lot_bid_view(request: HttpRequest, lot_id: uuid4):
         return redirect("auction:home")
 
     _ = Bid.objects.get_or_create(bidder=request.user, lot=lot)[0]
+    # Check if the lot is paid
+    is_paid = lot.paid
 
-    context: dict = {"lot": lot}
+    context: dict = {"lot": lot, "is_paid": is_paid}
     return render(request, "auction/lot-detail.html", context)
 
+@login_required
+def paid_lots_view(request):
+    paid_lots = Lot.objects.filter(paid=True)
+    return render(request, 'paid_lots.html', {'lots': paid_lots})
 
+@login_required
+def unpaid_lots_view(request):
+    unpaid_lots = Lot.objects.filter(paid=False)
+    return render(request, 'unpaid_lots.html', {'lots': unpaid_lots})
+    
 @login_required
 def cart_view(request: HttpRequest):
     """
@@ -69,7 +80,19 @@ def checkout(request: HttpRequest):
     }
     return render(request, "auction/checkout.html", context)
 
+@api_view(["POST"])
+def mark_lot_as_paid(request):
+    data = request.data
+    lot_id = data.get("lot_id")
 
+    try:
+        lot = get_object_or_404(Lot, id=lot_id)
+        lot.paid = True
+        lot.save()
+        return Response({"message": "Lot marked as paid."}, status=status.HTTP_200_OK)
+    except:
+        return Response({"message": "Lot not found or could not be marked as paid."}, status=status.HTTP_400_BAD_REQUEST)
+        
 @api_view(["GET"])
 def get_lot_has_endtime(request: HttpRequest, lot_id: uuid4):
     """
@@ -114,6 +137,11 @@ def verify_payment(request: HttpRequest):
     Verifies payment
     """
     data = json.loads(request.body)
+    lot_id = data.get("lot_id")
+    lot = get_object_or_404(Lot, id=lot_id)
+    lot.paid = True
+    lot.save()
+    return Response({"message": "Payment verified and lot marked as paid."}, status=status.HTTP_200_OK)
     
     pass
 
