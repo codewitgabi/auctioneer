@@ -12,6 +12,7 @@ urlpatterns = [
         views.toggle_user_as_marketer,
         name="toggle_user_as_marketer"),
     path("auction/", views.add_auction, name="add_auction"),
+    path('mark_lot_as_paid/', views.mark_lot_as_paid, name='mark_lot_as_paid'),
     
     # API endpoints
     
