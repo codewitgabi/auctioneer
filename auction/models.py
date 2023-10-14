@@ -46,6 +46,9 @@ class Lot(models.Model):
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, editable=False)
     sold = models.BooleanField(default=False)
 
+    # Add the "paid" column
+    paid = models.BooleanField(default=False)
+
     class Meta:
         verbose_name_plural = "Lots"
         db_table = "lot"
