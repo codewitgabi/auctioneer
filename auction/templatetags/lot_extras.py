@@ -3,7 +3,7 @@ from django import template
 register  = template.Library()
 
 @register.inclusion_tag("auction/output.html")
-def display_button_to_lot_bidding(user, lot) -> bool:
+def display_button_to_lot_bidding(user, lot) -> dict:
     """
     Checks if a user has placed a bid
     """

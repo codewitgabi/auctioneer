@@ -35,7 +35,7 @@ bidBtn.addEventListener("click", (e) => {
   fetch(getLotPriceURL)
   .then((response) => response.json())
   .then((data) => {
-    lotPrice = data.lot_price;
+    let lotPrice = data.lot_price;
     let setBid = bidInput.value;
     let bid = Number(setBid);
 

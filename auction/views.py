@@ -115,7 +115,7 @@ def verify_payment(request: HttpRequest):
     """
     data = json.loads(request.body)
     
-    pass
+    print(data)
 
 
 @login_required
